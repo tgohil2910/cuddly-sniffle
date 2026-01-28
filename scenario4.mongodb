@@ -1,109 +1,176 @@
-// MongoDB Aggregation Solutions - Scenario 4: University Student Data
-// Database: uniDB, Collection: students
-
-db = db.getSiblingDB("uniDB");
-
-/* -----------------------------
-   SETUP DATA
------------------------------ */
-
-db.students.insertMany([
-  { "name": "John Doe", "major": "CS", "gpa": 3.8, "year": 4 },
-  { "name": "Jane Smith", "major": "Math", "gpa": 3.9, "year": 3 },
-  { "name": "Jim Brown", "major": "CS", "gpa": 2.7, "year": 2 },
-  { "name": "Jake White", "major": "History", "gpa": 3.2, "year": 4 },
-  { "name": "Jill Green", "major": "Math", "gpa": 4.0, "year": 1 },
-  { "name": "Jack Black", "major": "CS", "gpa": 3.5, "year": 4 },
-  { "name": "Jerry Blue", "major": "History", "gpa": 2.9, "year": 3 },
-  { "name": "Jenny Gold", "major": "CS", "gpa": 3.9, "year": 3 }
-]);
-
-print("=== Data Setup Complete ===");
-
-/* -----------------------------
-   PART 1: Department GPA Stats
------------------------------ */
-
-print("\n=== PART 1: GPA Statistics by Major ===");
-db.students.aggregate([
+// // MongoDB Aggregation Solutions - Scenario 4: University Student Data
+// // Database: uniDB, Collection: students
+// 
+// db = db.getSiblingDB("uniDB");
+// 
+// /* -----------------------------
+//    SETUP DATA
+// ----------------------------- */
+// 
+// db.students.insertMany([
+//   { "name": "John Doe", "major": "CS", "gpa": 3.8, "year": 4 },
+//   { "name": "Jane Smith", "major": "Math", "gpa": 3.9, "year": 3 },
+//   { "name": "Jim Brown", "major": "CS", "gpa": 2.7, "year": 2 },
+//   { "name": "Jake White", "major": "History", "gpa": 3.2, "year": 4 },
+//   { "name": "Jill Green", "major": "Math", "gpa": 4.0, "year": 1 },
+//   { "name": "Jack Black", "major": "CS", "gpa": 3.5, "year": 4 },
+//   { "name": "Jerry Blue", "major": "History", "gpa": 2.9, "year": 3 },
+//   { "name": "Jenny Gold", "major": "CS", "gpa": 3.9, "year": 3 }
+// ]);
+// 
+// print("=== Data Setup Complete ===");
+// 
+// /* -----------------------------
+//    PART 1: Department GPA Stats
+// ----------------------------- */
+// 
+// print("\n=== PART 1: GPA Statistics by Major ===");
+// db.students.aggregate([
+//     {
+//         $group: {
+//             _id: "$major",
+//             minGPA: { $min: "$gpa" },
+//             maxGPA: { $max: "$gpa" },
+//             avgGPA: { $avg: "$gpa" }
+//         }
+//     },
+//     {
+//         $project: {
+//             _id: 0,
+//             Department: "$_id",
+//             minGPA: 1,
+//             maxGPA: 1,
+//             avgGPA: 1
+//         }
+//     }
+// ]);
+// 
+// /* -----------------------------
+//    PART 2: Top Seniors
+// ----------------------------- */
+// 
+// print("\n=== PART 2: Top Seniors (Year 4, GPA > 3.5) ===");
+// db.students.aggregate([
+//     { $match: { year: 4, gpa: { $gt: 3.5 } } },
+//     {
+//         $project: {
+//             _id: 0,
+//             name: 1,
+//             major: 1
+//         }
+//     },
+//     { $sort: { gpa: -1 } }
+// ]);
+// 
+// /* -----------------------------
+//    PART 3: Students per Year
+// ----------------------------- */
+// 
+// print("\n=== PART 3: Enrollment by Year ===");
+// db.students.aggregate([
+//     {
+//         $group: {
+//             _id: "$year",
+//             Count: { $sum: 1 }
+//         }
+//     },
+//     { $sort: { "_id": 1 } },
+//     {
+//         $project: {
+//             _id: 0,
+//             Year: "$_id",
+//             Count: 1
+//         }
+//     }
+// ]);
+// 
+// /* -----------------------------
+//    PART 4: Department Honor Roll
+// ----------------------------- */
+// 
+// print("\n=== PART 4: Top Honor Roll Majors ===");
+// db.students.aggregate([
+//     { $match: { gpa: { $gte: 3.5 } } },
+//     {
+//         $group: {
+//             _id: "$major",
+//             count: { $sum: 1 }
+//         }
+//     },
+//     { $sort: { count: -1 } },
+//     { $limit: 2 },
+//     {
+//         $project: {
+//             _id: 0,
+//             Major: "$_id",
+//             Honor_Student_Count: "$count"
+//         }
+//     }
+// 
+// Node.js module exports for autograding
+module.exports = {
+  part1: [
     {
-        $group: {
-            _id: "$major",
-            minGPA: { $min: "$gpa" },
-            maxGPA: { $max: "$gpa" },
-            avgGPA: { $avg: "$gpa" }
-        }
+      $group: {
+        _id: "$major",
+        minGPA: { $min: "$gpa" },
+        maxGPA: { $max: "$gpa" },
+        avgGPA: { $avg: "$gpa" }
+      }
     },
     {
-        $project: {
-            _id: 0,
-            Department: "$_id",
-            minGPA: 1,
-            maxGPA: 1,
-            avgGPA: 1
-        }
+      $project: {
+        _id: 0,
+        Department: "$_id",
+        minGPA: 1,
+        maxGPA: 1,
+        avgGPA: 1
+      }
     }
-]);
-
-/* -----------------------------
-   PART 2: Top Seniors
------------------------------ */
-
-print("\n=== PART 2: Top Seniors (Year 4, GPA > 3.5) ===");
-db.students.aggregate([
+  ],
+  part2: [
     { $match: { year: 4, gpa: { $gt: 3.5 } } },
     {
-        $project: {
-            _id: 0,
-            name: 1,
-            major: 1
-        }
+      $project: {
+        _id: 0,
+        name: 1,
+        major: 1
+      }
     },
     { $sort: { gpa: -1 } }
-]);
-
-/* -----------------------------
-   PART 3: Students per Year
------------------------------ */
-
-print("\n=== PART 3: Enrollment by Year ===");
-db.students.aggregate([
+  ],
+  part3: [
     {
-        $group: {
-            _id: "$year",
-            Count: { $sum: 1 }
-        }
+      $group: {
+        _id: "$year",
+        Count: { $sum: 1 }
+      }
     },
     { $sort: { "_id": 1 } },
     {
-        $project: {
-            _id: 0,
-            Year: "$_id",
-            Count: 1
-        }
+      $project: {
+        _id: 0,
+        Year: "$_id",
+        Count: 1
+      }
     }
-]);
-
-/* -----------------------------
-   PART 4: Department Honor Roll
------------------------------ */
-
-print("\n=== PART 4: Top Honor Roll Majors ===");
-db.students.aggregate([
+  ],
+  part4: [
     { $match: { gpa: { $gte: 3.5 } } },
     {
-        $group: {
-            _id: "$major",
-            count: { $sum: 1 }
-        }
+      $group: {
+        _id: "$major",
+        count: { $sum: 1 }
+      }
     },
     { $sort: { count: -1 } },
     { $limit: 2 },
     {
-        $project: {
-            _id: 0,
-            Major: "$_id",
-            Honor_Student_Count: "$count"
-        }
+      $project: {
+        _id: 0,
+        Major: "$_id",
+        Honor_Student_Count: "$count"
+      }
     }
-]);
+  ]
+};

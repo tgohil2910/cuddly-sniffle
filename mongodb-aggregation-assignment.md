@@ -9,16 +9,15 @@ Each scenario includes:
 - Specific output format requirements where applicable
 
 ## Submission Requirements
-- Submit **4 MongoDB script files** (.mongodb extension) in your repository:
-  - `scenario1.mongodb` - Solutions for Cities Data Analysis
-  - `scenario2.mongodb` - Solutions for E-commerce Analytics  
-  - `scenario3.mongodb` - Solutions for Product Catalog Analytics
-  - `scenario4.mongodb` - Solutions for University Student Data
+- Submit **4 JavaScript files** (.js extension) in your repository:
+  - `scenario1.js` - Solutions for Cities Data Analysis
+  - `scenario2.js` - Solutions for E-commerce Analytics
+  - `scenario3.js` - Solutions for Product Catalog Analytics
+  - `scenario4.js` - Solutions for University Student Data
 - Each file should export an object with pipeline arrays for each task (see examples below)
 - Example file structure:
   ```javascript
-  // scenario1.mongodb
-  module.exports = {
+  // scenario1.js
     part1: [ /* your pipeline for Part 1 */ ],
     part2_task1: [ /* pipeline for Part 2 Task 1 */ ],
     part2_task2: [ /* pipeline for Part 2 Task 2 */ ],
