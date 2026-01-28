@@ -37,8 +37,7 @@ db.cities.aggregate([
   { $match: { count: { $gte: 2 } } }
 ]);
 
-// Part 3: Data Transformation
-// Cities in Asia, specific project format
+
 db.cities.aggregate([
   { $match: { continent: "Asia" } },
   { $project: { _id: 0, city: "$name", pop: "$population" } }
