@@ -1,0 +1,174 @@
+{
+  "tests": [
+    {
+      "name": "Scenario 1 - Part 1: South American Cities",
+      "setup": "npm install mongodb",
+      "run": "node -e \"const s = require('./scenario1.mongodb'); console.log(JSON.stringify(s.part1));\"",
+      "input": "",
+      "output": "[{\"$match\":{\"continent\":\"South America\"}},{\"$sort\":{\"name\":1}}]",
+      "comparison": "exact",
+      "timeout": 10,
+      "points": 5
+    },
+    {
+      "name": "Scenario 1 - Part 2.1: Average Population by Continent",
+      "setup": "",
+      "run": "node -e \"const s = require('./scenario1.mongodb'); console.log(JSON.stringify(s.part2_task1));\"",
+      "input": "",
+      "output": "[{\"$group\":{\"_id\":\"$continent\",\"avgPopulation\":{\"$avg\":\"$population\"}}}]",
+      "comparison": "exact",
+      "timeout": 10,
+      "points": 5
+    },
+    {
+      "name": "Scenario 1 - Part 2.2: Countries with Multiple Cities",
+      "setup": "",
+      "run": "node -e \"const s = require('./scenario1.mongodb'); console.log(JSON.stringify(s.part2_task2));\"",
+      "input": "",
+      "output": "[{\"$group\":{\"_id\":\"$country\",\"count\":{\"$sum\":1}}},{\"$match\":{\"count\":{\"$gte\":2}}}]",
+      "comparison": "exact",
+      "timeout": 10,
+      "points": 5
+    },
+    {
+      "name": "Scenario 1 - Part 3: Asian Cities Reshaped",
+      "setup": "",
+      "run": "node -e \"const s = require('./scenario1.mongodb'); console.log(JSON.stringify(s.part3));\"",
+      "input": "",
+      "output": "[{\"$match\":{\"continent\":\"Asia\"}},{\"$project\":{\"_id\":0,\"city\":\"$name\",\"pop\":\"$population\"}}]",
+      "comparison": "exact",
+      "timeout": 10,
+      "points": 5
+    },
+    {
+      "name": "Scenario 1 - Part 4: Mega-Cities Analysis",
+      "setup": "",
+      "run": "node -e \"const s = require('./scenario1.mongodb'); console.log(JSON.stringify(s.part4));\"",
+      "input": "",
+      "output": "[{\"$match\":{\"population\":{\"$gt\":15}}},{\"$group\":{\"_id\":\"$continent\",\"total_mega_pop\":{\"$sum\":\"$population\"}}},{\"$sort\":{\"total_mega_pop\":-1}},{\"$project\":{\"_id\":0,\"region\":\"$_id\",\"total_mega_pop\":1}}]",
+      "comparison": "exact",
+      "timeout": 10,
+      "points": 5
+    },
+    {
+      "name": "Scenario 2 - Part 1: Completed Orders Report",
+      "setup": "",
+      "run": "node -e \"const s = require('./scenario2.mongodb'); console.log(JSON.stringify(s.part1));\"",
+      "input": "",
+      "output": "[{\"$match\":{\"status\":\"completed\"}},{\"$project\":{\"_id\":0,\"customer\":1,\"total\":1}}]",
+      "comparison": "exact",
+      "timeout": 10,
+      "points": 5
+    },
+    {
+      "name": "Scenario 2 - Part 2: Average Transaction Value",
+      "setup": "",
+      "run": "node -e \"const s = require('./scenario2.mongodb'); console.log(JSON.stringify(s.part2));\"",
+      "input": "",
+      "output": "[{\"$match\":{\"status\":\"completed\"}},{\"$group\":{\"_id\":null,\"avgOrderValue\":{\"$avg\":\"$total\"}}}]",
+      "comparison": "exact",
+      "timeout": 10,
+      "points": 5
+    },
+    {
+      "name": "Scenario 2 - Part 3: Customer Lifetime Value",
+      "setup": "",
+      "run": "node -e \"const s = require('./scenario2.mongodb'); console.log(JSON.stringify(s.part3));\"",
+      "input": "",
+      "output": "[{\"$match\":{\"status\":\"completed\"}},{\"$group\":{\"_id\":\"$customer\",\"totalSpent\":{\"$sum\":\"$total\"}}},{\"$sort\":{\"totalSpent\":-1}}]",
+      "comparison": "exact",
+      "timeout": 10,
+      "points": 5
+    },
+    {
+      "name": "Scenario 2 - Part 4: VIP Customers",
+      "setup": "",
+      "run": "node -e \"const s = require('./scenario2.mongodb'); console.log(JSON.stringify(s.part4));\"",
+      "input": "",
+      "output": "[{\"$match\":{\"status\":\"completed\"}},{\"$group\":{\"_id\":\"$customer\",\"totalSpent\":{\"$sum\":\"$total\"}}},{\"$match\":{\"totalSpent\":{\"$gt\":1000}}},{\"$sort\":{\"totalSpent\":-1}},{\"$project\":{\"_id\":0,\"VIP_Name\":\"$_id\",\"Grand_Total\":\"$totalSpent\"}}]",
+      "comparison": "exact",
+      "timeout": 10,
+      "points": 5
+    },
+    {
+      "name": "Scenario 3 - Part 1: Brand Pricing Report",
+      "setup": "",
+      "run": "node -e \"const s = require('./scenario3.mongodb'); console.log(JSON.stringify(s.part1));\"",
+      "input": "",
+      "output": "[{\"$group\":{\"_id\":\"$brand\",\"avgPrice\":{\"$avg\":\"$price\"}}},{\"$project\":{\"_id\":0,\"BrandName\":\"$_id\",\"AvgPrice\":\"$avgPrice\"}}]",
+      "comparison": "exact",
+      "timeout": 10,
+      "points": 5
+    },
+    {
+      "name": "Scenario 3 - Part 2: Feature Mining",
+      "setup": "",
+      "run": "node -e \"const s = require('./scenario3.mongodb'); console.log(JSON.stringify(s.part2));\"",
+      "input": "",
+      "output": "[{\"$unwind\":\"$features\"},{\"$group\":{\"_id\":\"$features\",\"count\":{\"$sum\":1}}},{\"$sort\":{\"count\":-1}}]",
+      "comparison": "exact",
+      "timeout": 10,
+      "points": 5
+    },
+    {
+      "name": "Scenario 3 - Part 3: Premium Phones",
+      "setup": "",
+      "run": "node -e \"const s = require('./scenario3.mongodb'); console.log(JSON.stringify(s.part3));\"",
+      "input": "",
+      "output": "[{\"$match\":{\"price\":{\"$gt\":700}}},{\"$project\":{\"_id\":0,\"Model\":\"$model\",\"Price\":\"$price\"}},{\"$sort\":{\"Price\":-1}}]",
+      "comparison": "exact",
+      "timeout": 10,
+      "points": 5
+    },
+    {
+      "name": "Scenario 3 - Part 4: 5G Market Leaders",
+      "setup": "",
+      "run": "node -e \"const s = require('./scenario3.mongodb'); console.log(JSON.stringify(s.part4));\"",
+      "input": "",
+      "output": "[{\"$match\":{\"features\":\"5G\"}},{\"$group\":{\"_id\":\"$brand\",\"avgPrice\":{\"$avg\":\"$price\"}}},{\"$sort\":{\"avgPrice\":1}},{\"$project\":{\"_id\":0,\"Brand\":\"$_id\",\"Avg_5G_Price\":\"$avgPrice\"}}]",
+      "comparison": "exact",
+      "timeout": 10,
+      "points": 5
+    },
+    {
+      "name": "Scenario 4 - Part 1: Department GPA Stats",
+      "setup": "",
+      "run": "node -e \"const s = require('./scenario4.mongodb'); console.log(JSON.stringify(s.part1));\"",
+      "input": "",
+      "output": "[{\"$group\":{\"_id\":\"$major\",\"minGPA\":{\"$min\":\"$gpa\"},\"maxGPA\":{\"$max\":\"$gpa\"},\"avgGPA\":{\"$avg\":\"$gpa\"}}},{\"$project\":{\"_id\":0,\"Department\":\"$_id\",\"minGPA\":1,\"maxGPA\":1,\"avgGPA\":1}}]",
+      "comparison": "exact",
+      "timeout": 10,
+      "points": 5
+    },
+    {
+      "name": "Scenario 4 - Part 2: Top Seniors",
+      "setup": "",
+      "run": "node -e \"const s = require('./scenario4.mongodb'); console.log(JSON.stringify(s.part2));\"",
+      "input": "",
+      "output": "[{\"$match\":{\"year\":4,\"gpa\":{\"$gt\":3.5}}},{\"$project\":{\"_id\":0,\"name\":1,\"major\":1}},{\"$sort\":{\"gpa\":-1}}]",
+      "comparison": "exact",
+      "timeout": 10,
+      "points": 5
+    },
+    {
+      "name": "Scenario 4 - Part 3: Students per Year",
+      "setup": "",
+      "run": "node -e \"const s = require('./scenario4.mongodb'); console.log(JSON.stringify(s.part3));\"",
+      "input": "",
+      "output": "[{\"$group\":{\"_id\":\"$year\",\"Count\":{\"$sum\":1}}},{\"$sort\":{\"_id\":1}},{\"$project\":{\"_id\":0,\"Year\":\"$_id\",\"Count\":1}}]",
+      "comparison": "exact",
+      "timeout": 10,
+      "points": 5
+    },
+    {
+      "name": "Scenario 4 - Part 4: Department Honor Roll",
+      "setup": "",
+      "run": "node -e \"const s = require('./scenario4.mongodb'); console.log(JSON.stringify(s.part4));\"",
+      "input": "",
+      "output": "[{\"$match\":{\"gpa\":{\"$gte\":3.5}}},{\"$group\":{\"_id\":\"$major\",\"count\":{\"$sum\":1}}},{\"$sort\":{\"count\":-1}},{\"$limit\":2},{\"$project\":{\"_id\":0,\"Major\":\"$_id\",\"Honor_Student_Count\":\"$count\"}}]",
+      "comparison": "exact",
+      "timeout": 10,
+      "points": 5
+    }
+  ]
+}
