@@ -26,10 +26,10 @@ async function runTests() {
       // Load data and expected
       const dataPath = path.join(__dirname, '..', '..', 'tests', `${name}_data.json`);
       const expectedPath = path.join(__dirname, '..', '..', 'tests', `${name}_expected.json`);
-      const studentPath = path.join(__dirname, '..', '..', `${name}.js`);
+      const studentPath = path.join(__dirname, '..', '..', `${name}.mongodb`);
 
       if (!fs.existsSync(studentPath)) {
-        console.log(`Student file ${name}.js not found`);
+        console.log(`Student file ${name}.mongodb not found`);
         continue;
       }
 
