@@ -1,0 +1,12 @@
+{
+  "name": "mongodb-assignment-grading",
+  "version": "1.0.0",
+  "description": "Autograding for MongoDB aggregation assignment",
+  "main": "grade.js",
+  "scripts": {
+    "test": "node grade.js"
+  },
+  "dependencies": {
+    "mongodb": "^5.0.0"
+  }
+}

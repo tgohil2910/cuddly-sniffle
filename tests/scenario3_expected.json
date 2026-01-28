@@ -1,0 +1,32 @@
+{
+  "part1": [
+    {"_id": "Google", "avgPrice": 524},
+    {"_id": "Samsung", "avgPrice": 550},
+    {"_id": "OnePlus", "avgPrice": 729},
+    {"_id": "Apple", "avgPrice": 732.3333333333334}
+  ],
+  "part2": [
+    {"_id": "5G", "count": 5},
+    {"_id": "OLED", "count": 3},
+    {"_id": "4G", "count": 2},
+    {"_id": "NFC", "count": 2},
+    {"_id": "FaceID", "count": 2},
+    {"_id": "AMOLED", "count": 2},
+    {"_id": "Fast Charging", "count": 1},
+    {"_id": "LiDAR", "count": 1},
+    {"_id": "TouchID", "count": 1},
+    {"_id": "Wireless Charging", "count": 1}
+  ],
+  "part3": [
+    {"model": "iPhone 13 Pro", "price": 999},
+    {"model": "iPhone 13", "price": 799},
+    {"model": "Galaxy S21", "price": 750},
+    {"model": "OnePlus 9", "price": 729}
+  ],
+  "part4": [
+    {"Brand": "Google", "Avg_5G_Price": 524},
+    {"Brand": "Samsung", "Avg_5G_Price": 750},
+    {"Brand": "OnePlus", "Avg_5G_Price": 729},
+    {"Brand": "Apple", "Avg_5G_Price": 899}
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "part1": [
+    {"customer": "Alice", "total": 1200},
+    {"customer": "Alice", "total": 700},
+    {"customer": "Bob", "total": 300},
+    {"customer": "David", "total": 1500},
+    {"customer": "Eve", "total": 2500},
+    {"customer": "Charlie", "total": 450}
+  ],
+  "part2": [
+    {"_id": null, "avgOrderValue": 989.1666666666666}
+  ],
+  "part3": [
+    {"_id": "Eve", "totalSpent": 2500},
+    {"_id": "Alice", "totalSpent": 1900},
+    {"_id": "David", "totalSpent": 1500},
+    {"_id": "Charlie", "totalSpent": 450},
+    {"_id": "Bob", "totalSpent": 300}
+  ],
+  "part4": [
+    {"VIP_Name": "Eve", "Grand_Total": 2500},
+    {"VIP_Name": "Alice", "Grand_Total": 1900},
+    {"VIP_Name": "David", "Grand_Total": 1500}
+  ]
+}

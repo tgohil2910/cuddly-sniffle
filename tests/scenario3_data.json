@@ -1,0 +1,10 @@
+[
+  { "model": "Pixel 6", "brand": "Google", "price": 599, "features": ["5G", "OLED", "NFC"] },
+  { "model": "iPhone 13", "brand": "Apple", "price": 799, "features": ["5G", "FaceID", "NFC"] },
+  { "model": "Galaxy S21", "brand": "Samsung", "price": 750, "features": ["5G", "AMOLED", "Wireless Charging"] },
+  { "model": "iPhone SE", "brand": "Apple", "price": 399, "features": ["TouchID", "4G"] },
+  { "model": "Galaxy A52", "brand": "Samsung", "price": 350, "features": ["4G", "AMOLED"] },
+  { "model": "Pixel 5a", "brand": "Google", "price": 449, "features": ["5G", "OLED"] },
+  { "model": "iPhone 13 Pro", "brand": "Apple", "price": 999, "features": ["5G", "FaceID", "LiDAR", "OLED"] },
+  { "model": "OnePlus 9", "brand": "OnePlus", "price": 729, "features": ["5G", "Fast Charging"] }
+]

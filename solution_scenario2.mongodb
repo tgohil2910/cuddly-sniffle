@@ -1,0 +1,94 @@
+// MongoDB Aggregation Solutions - Scenario 2: E-commerce Analytics
+// Database: shopDB, Collection: orders
+
+db = db.getSiblingDB("shopDB");
+
+/* -----------------------------
+   SETUP DATA
+----------------------------- */
+
+db.orders.insertMany([
+  { "orderId": 101, "customer": "Alice", "status": "completed", "total": 1200, "items": 3 },
+  { "orderId": 102, "customer": "Bob", "status": "pending", "total": 450, "items": 1 },
+  { "orderId": 103, "customer": "Alice", "status": "completed", "total": 700, "items": 2 },
+  { "orderId": 104, "customer": "Charlie", "status": "cancelled", "total": 200, "items": 1 },
+  { "orderId": 105, "customer": "Bob", "status": "completed", "total": 300, "items": 1 },
+  { "orderId": 106, "customer": "David", "status": "completed", "total": 1500, "items": 4 },
+  { "orderId": 107, "customer": "Alice", "status": "pending", "total": 100, "items": 1 },
+  { "orderId": 108, "customer": "Eve", "status": "completed", "total": 2500, "items": 5 },
+  { "orderId": 109, "customer": "Charlie", "status": "completed", "total": 450, "items": 2 },
+  { "orderId": 110, "customer": "Eve", "status": "cancelled", "total": 0, "items": 0 }
+]);
+
+print("=== Data Setup Complete ===");
+
+/* -----------------------------
+   PART 1: Completed Orders Report
+----------------------------- */
+
+print("\n=== PART 1: Completed Orders (customer/total) ===");
+db.orders.aggregate([
+    { $match: { status: "completed" } },
+    {
+        $project: {
+            _id: 0,
+            customer: 1,
+            total: 1
+        }
+    }
+]);
+
+/* -----------------------------
+   PART 2: Average Transaction Value
+----------------------------- */
+
+print("\n=== PART 2: Average Order Value (Completed) ===");
+db.orders.aggregate([
+    { $match: { status: "completed" } },
+    {
+        $group: {
+            _id: null,
+            avgOrderValue: { $avg: "$total" }
+        }
+    }
+]);
+
+/* -----------------------------
+   PART 3: Customer Lifetime Value (CLV)
+----------------------------- */
+
+print("\n=== PART 3: Customer Lifetime Value ===");
+db.orders.aggregate([
+    { $match: { status: "completed" } },
+    {
+        $group: {
+            _id: "$customer",
+            totalSpent: { $sum: "$total" }
+        }
+    },
+    { $sort: { totalSpent: -1 } }
+]);
+
+/* -----------------------------
+   PART 4: VIP Customers (>1000 total)
+----------------------------- */
+
+print("\n=== PART 4: VIP Customers ===");
+db.orders.aggregate([
+    { $match: { status: "completed" } },
+    {
+        $group: {
+            _id: "$customer",
+            totalSpent: { $sum: "$total" }
+        }
+    },
+    { $match: { totalSpent: { $gt: 1000 } } },
+    { $sort: { totalSpent: -1 } },
+    {
+        $project: {
+            _id: 0,
+            VIP_Name: "$_id",
+            Grand_Total: "$totalSpent"
+        }
+    }
+]);

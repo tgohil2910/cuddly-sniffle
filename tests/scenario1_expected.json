@@ -1,0 +1,41 @@
+{
+  "part1": [
+    {"name": "Buenos Aires", "country": "Argentina", "continent": "South America", "population": 14.967},
+    {"name": "Rio de Janeiro", "country": "Brazil", "continent": "South America", "population": 13.293},
+    {"name": "São Paulo", "country": "Brazil", "continent": "South America", "population": 21.65}
+  ],
+  "part2_task1": [
+    {"_id": "Asia", "avgPopulation": 19.502333333333333},
+    {"_id": "North America", "avgPopulation": 20.2},
+    {"_id": "Africa", "avgPopulation": 16.7695},
+    {"_id": "Europe", "avgPopulation": 14.751},
+    {"_id": "South America", "avgPopulation": 16.636666666666668}
+  ],
+  "part2_task2": [
+    {"_id": "China", "count": 3},
+    {"_id": "India", "count": 3},
+    {"_id": "Japan", "count": 2},
+    {"_id": "Brazil", "count": 2}
+  ],
+  "part3": [
+    {"city": "Seoul", "pop": 25.674},
+    {"city": "Mumbai", "pop": 19.98},
+    {"city": "Beijing", "pop": 19.618},
+    {"city": "Shanghai", "pop": 25.582},
+    {"city": "Osaka", "pop": 19.281},
+    {"city": "Tokyo", "pop": 37.4},
+    {"city": "Karachi", "pop": 15.4},
+    {"city": "Dhaka", "pop": 19.578},
+    {"city": "Delhi", "pop": 28.514},
+    {"city": "Kolkata", "pop": 14.681},
+    {"city": "Manila", "pop": 13.482},
+    {"city": "Chongqing", "pop": 14.838}
+  ],
+  "part4": [
+    {"region": "Asia", "total_mega_pop": 237.028},
+    {"region": "North America", "total_mega_pop": 40.4},
+    {"region": "Africa", "total_mega_pop": 20.076},
+    {"region": "South America", "total_mega_pop": 21.65},
+    {"region": "Europe", "total_mega_pop": 14.751}
+  ]
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MongoDB Practical: Electronics Catalog</title>
+    <style>
+        :root { --primary-color: #0277bd; --secondary-color: #00bcd4; --light-bg: #e1f5fe; --border-color: #b3e5fc; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f4f6f8; color: #333; padding: 20px; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: var(--primary-color); font-size: 2.2rem; margin-bottom: 10px; }
+        .scenario-box { background: var(--light-bg); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 30px; }
+        h2 { color: var(--primary-color); border-left: 5px solid var(--secondary-color); padding-left: 15px; margin-top: 30px; background: #fafafa; padding-top: 10px; padding-bottom: 10px; }
+        .task-item { border: 1px solid #eee; padding: 20px; border-radius: 8px; margin: 20px 0; transition: transform 0.2s; }
+        .task-item:hover { transform: translateY(-3px); border-color: var(--secondary-color); }
+        .task-title { font-weight: bold; color: var(--primary-color); font-size: 1.1rem; margin-bottom: 10px; }
+        pre { background: #f8fafc; padding: 15px; border-radius: 6px; border: 1px solid #e1e8ed; overflow-x: auto; color: #d63384; font-family: 'Consolas', monospace; }
+        .footer { text-align: center; margin-top: 50px; border-top: 1px solid #eee; padding-top: 20px; color: #777; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Practical: Product Catalog Analytics</h1>
+        <div class="scenario-box">
+            <strong>📝 Scenario:</strong><br>
+            You manage a smartphone database. You need to perform deep analysis using <strong>Array Unwinding</strong> and <strong>Multi-Stage Pipelines</strong>.
+            <ul>
+                <li><strong>Database:</strong> <code>techDB</code> | <strong>Collection:</strong> <code>phones</code></li>
+            </ul>
+        </div>
+
+        <h2>Part 0: Setup Data</h2>
+        <div class="task-item">
+            <div class="task-title">Insert Phone Data</div>
+            <pre>db.phones.insertMany([
+  { "model": "Pixel 6", "brand": "Google", "price": 599, "features": ["5G", "OLED", "NFC"] },
+  { "model": "iPhone 13", "brand": "Apple", "price": 799, "features": ["5G", "FaceID", "NFC"] },
+  { "model": "Galaxy S21", "brand": "Samsung", "price": 750, "features": ["5G", "AMOLED", "Wireless Charging"] },
+  { "model": "iPhone SE", "brand": "Apple", "price": 399, "features": ["TouchID", "4G"] },
+  { "model": "Galaxy A52", "brand": "Samsung", "price": 350, "features": ["4G", "AMOLED"] },
+  { "model": "Pixel 5a", "brand": "Google", "price": 449, "features": ["5G", "OLED"] },
+  { "model": "iPhone 13 Pro", "brand": "Apple", "price": 999, "features": ["5G", "FaceID", "LiDAR", "OLED"] },
+  { "model": "OnePlus 9", "brand": "OnePlus", "price": 729, "features": ["5G", "Fast Charging"] }
+]);</pre>
+        </div>
+
+        <h2>Part 1: Basic Stats</h2>
+        <div class="task-item">
+            <div class="task-title">Brand Pricing Report</div>
+            Calculate the average price for each brand and reshape the output to show <code>BrandName</code> and <code>AvgPrice</code>.
+        </div>
+
+        <h2>Part 2: Array Unwinding</h2>
+        <div class="task-item">
+            <div class="task-title">Feature Mining</div>
+            1. <strong>Unwind:</strong> Deconstruct the <code>features</code> array.<br>
+            2. <strong>Group:</strong> Count how many times each feature appears.<br>
+            3. <strong>Sort:</strong> Show the most popular features at the top.
+        </div>
+
+        <h2>Part 3: Pipeline Filtering</h2>
+        <div class="task-item">
+            <div class="task-title">Premium Filter</div>
+            Find phones priced over $700. Project only the Model and Price. Sort by Price descending.
+        </div>
+
+        <h2>Part 4: Multi-Stage 5G Analysis (Advanced)</h2>
+        <div class="task-item">
+            <div class="task-title">5G Market Leaders</div>
+            Analyze which brands offer the most affordable 5G phones.
+            <br><br><strong>Pipeline Stages Required:</strong>
+            <ol>
+                <li><strong>Match:</strong> Filter to find phones that have "5G" in their features array.</li>
+                <li><strong>Group:</strong> Group by <code>brand</code> and calculate the <strong>average price</strong> of their 5G phones.</li>
+                <li><strong>Sort:</strong> Sort by average price ascending (Cheapest brand first).</li>
+                <li><strong>Project:</strong> Format the output: <code>{ "Brand": "Google", "Avg_5G_Price": 524 }</code>.</li>
+            </ol>
+        </div>
+
+        <div class="footer">MongoDB Aggregation Practice • Tech Catalog</div>
+    </div>
+</body>
+</html>
