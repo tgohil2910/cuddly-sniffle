@@ -1,14 +1,18 @@
-name: Autograding
-on: [push, workflow_dispatch]
+name: GitHub Classroom Autograding Workflow
+
+on:
+  - push
+  - workflow_dispatch
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
 
 jobs:
-  autograde:
+  build:
+    name: Autograding
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Autograde
-        uses: education/autograding@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v4
+      - uses: education/autograding@v1

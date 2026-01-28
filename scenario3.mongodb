@@ -1,154 +1,47 @@
-// // MongoDB Aggregation Solutions - Scenario 3: Product Catalog Analytics
-// // Database: techDB, Collection: phones
-// 
-// db = db.getSiblingDB("techDB");
-// 
-// /* -----------------------------
-//    SETUP DATA
-// ----------------------------- */
-// 
-// db.phones.insertMany([
-//   { "model": "Pixel 6", "brand": "Google", "price": 599, "features": ["5G", "OLED", "NFC"] },
-//   { "model": "iPhone 13", "brand": "Apple", "price": 799, "features": ["5G", "FaceID", "NFC"] },
-//   { "model": "Galaxy S21", "brand": "Samsung", "price": 750, "features": ["5G", "AMOLED", "Wireless Charging"] },
-//   { "model": "iPhone SE", "brand": "Apple", "price": 399, "features": ["TouchID", "4G"] },
-//   { "model": "Galaxy A52", "brand": "Samsung", "price": 350, "features": ["4G", "AMOLED"] },
-//   { "model": "Pixel 5a", "brand": "Google", "price": 449, "features": ["5G", "OLED"] },
-//   { "model": "iPhone 13 Pro", "brand": "Apple", "price": 999, "features": ["5G", "FaceID", "LiDAR", "OLED"] },
-//   { "model": "OnePlus 9", "brand": "OnePlus", "price": 729, "features": ["5G", "Fast Charging"] }
-// ]);
-// 
-// print("=== Data Setup Complete ===");
-// 
-// /* -----------------------------
-//    PART 1: Brand Pricing Report
-// ----------------------------- */
-// 
-// print("\n=== PART 1: Average Price by Brand ===");
-// db.phones.aggregate([
-//     {
-//         $group: {
-//             _id: "$brand",
-//             avgPrice: { $avg: "$price" }
-//         }
-//     },
-//     {
-//         $project: {
-//             _id: 0,
-//             BrandName: "$_id",
-//             AvgPrice: "$avgPrice"
-//         }
-//     }
-// ]);
-// 
-// /* -----------------------------
-//    PART 2: Feature Mining
-// ----------------------------- */
-// 
-// print("\n=== PART 2: Feature Popularity ===");
-// db.phones.aggregate([
-//     { $unwind: "$features" },
-//     {
-//         $group: {
-//             _id: "$features",
-//             count: { $sum: 1 }
-//         }
-//     },
-//     { $sort: { count: -1 } }
-// ]);
-// 
-// /* -----------------------------
-//    PART 3: Premium Phones
-// ----------------------------- */
-// 
-// print("\n=== PART 3: Premium Phones (>700) ===");
-// db.phones.aggregate([
-//     { $match: { price: { $gt: 700 } } },
-//     {
-//         $project: {
-//             _id: 0,
-//             Model: "$model",
-//             Price: "$price"
-//         }
-//     },
-//     { $sort: { Price: -1 } }
-// ]);
-// 
-// /* -----------------------------
-//    PART 4: 5G Market Leaders
-// ----------------------------- */
-// 
-// print("\n=== PART 4: 5G Brands (Cheapest First) ===");
-// db.phones.aggregate([
-//     { $match: { features: "5G" } },
-//     {
-//         $group: {
-//             _id: "$brand",
-//             avgPrice: { $avg: "$price" }
-//         }
-//     },
-//     { $sort: { avgPrice: 1 } },
-//     {
-//         $project: {
-//             _id: 0,
-//             Brand: "$_id",
-//             Avg_5G_Price: "$avgPrice"
-//         }
-//     }
-// 
-// Node.js module exports for autograding
-module.exports = {
-  part1: [
-    {
-      $group: {
-        _id: "$brand",
-        avgPrice: { $avg: "$price" }
-      }
-    },
-    {
-      $project: {
-        _id: 0,
-        BrandName: "$_id",
-        AvgPrice: "$avgPrice"
-      }
-    }
-  ],
-  part2: [
-    { $unwind: "$features" },
-    {
-      $group: {
-        _id: "$features",
-        count: { $sum: 1 }
-      }
-    },
-    { $sort: { count: -1 } }
-  ],
-  part3: [
-    { $match: { price: { $gt: 700 } } },
-    {
-      $project: {
-        _id: 0,
-        Model: "$model",
-        Price: "$price"
-      }
-    },
-    { $sort: { Price: -1 } }
-  ],
-  part4: [
-    { $match: { features: "5G" } },
-    {
-      $group: {
-        _id: "$brand",
-        avgPrice: { $avg: "$price" }
-      }
-    },
-    { $sort: { avgPrice: 1 } },
-    {
-      $project: {
-        _id: 0,
-        Brand: "$_id",
-        Avg_5G_Price: "$avgPrice"
-      }
-    }
-  ]
-};
+// Scenario 3: Product Catalog Analytics
+db = db.getSiblingDB("techDB");
+
+// 1. Cleanup
+db.phones.drop();
+
+// 2. Setup Data
+db.phones.insertMany([
+  { "model": "Pixel 6", "brand": "Google", "price": 599, "features": ["5G", "OLED", "NFC"] },
+  { "model": "iPhone 13", "brand": "Apple", "price": 799, "features": ["5G", "FaceID", "NFC"] },
+  { "model": "Galaxy S21", "brand": "Samsung", "price": 750, "features": ["5G", "AMOLED", "Wireless Charging"] },
+  { "model": "iPhone SE", "brand": "Apple", "price": 399, "features": ["TouchID", "4G"] },
+  { "model": "Galaxy A52", "brand": "Samsung", "price": 350, "features": ["4G", "AMOLED"] },
+  { "model": "Pixel 5a", "brand": "Google", "price": 449, "features": ["5G", "OLED"] },
+  { "model": "iPhone 13 Pro", "brand": "Apple", "price": 999, "features": ["5G", "FaceID", "LiDAR", "OLED"] },
+  { "model": "OnePlus 9", "brand": "OnePlus", "price": 729, "features": ["5G", "Fast Charging"] }
+]);
+
+// Part 1: Brand Pricing Report
+db.phones.aggregate([
+  { $group: { _id: "$brand", AvgPrice: { $avg: "$price" } } },
+  { $project: { _id: 0, BrandName: "$_id", AvgPrice: 1 } }
+]);
+
+// Part 2: Feature Mining
+db.phones.aggregate([
+  { $unwind: "$features" },
+  { $group: { _id: "$features", count: { $sum: 1 } } },
+  { $sort: { count: -1 } }
+]);
+
+// Part 3: Premium Filter
+db.phones.aggregate([
+  { $match: { price: { $gt: 700 } } },
+  { $sort: { price: -1 } },
+  { $project: { _id: 0, model: 1, price: 1 } }
+]);
+
+// Part 4: 5G Market Leaders
+db.phones.aggregate([
+  { $match: { features: "5G" } },
+  { $group: { _id: "$brand", avgPrice: { $avg: "$price" } } },
+  { $sort: { avgPrice: 1 } },
+  { $project: { _id: 0, Brand: "$_id", Avg_5G_Price: "$avgPrice" } }
+]);
+
+

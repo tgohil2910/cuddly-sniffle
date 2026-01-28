@@ -9,24 +9,12 @@ Each scenario includes:
 - Specific output format requirements where applicable
 
 ## Submission Requirements
-- Submit **4 JavaScript files** (.js extension) in your repository:
-  - `scenario1.js` - Solutions for Cities Data Analysis
-  - `scenario2.js` - Solutions for E-commerce Analytics
-  - `scenario3.js` - Solutions for Product Catalog Analytics
-  - `scenario4.js` - Solutions for University Student Data
-- Each file should export an object with pipeline arrays for each task (see examples below)
-- Example file structure:
-  ```javascript
-  // scenario1.js
-    part1: [ /* your pipeline for Part 1 */ ],
-    part2_task1: [ /* pipeline for Part 2 Task 1 */ ],
-    part2_task2: [ /* pipeline for Part 2 Task 2 */ ],
-    part3: [ /* pipeline for Part 3 */ ],
-    part4: [ /* pipeline for Part 4 */ ]
-  };
-  ```
-- Your pipelines will be automatically tested against expected results
-- Ensure your code is syntactically correct and follows MongoDB aggregation syntax
+- Submit **4 MongoDB Script files** (`.mongodb` extension) in your repository:
+  - `scenario1.mongodb` - Solutions for Cities Data Analysis
+  - `scenario2.mongodb` - Solutions for E-commerce Analytics
+  - `scenario3.mongodb` - Solutions for Product Catalog Analytics
+  - `scenario4.mongodb` - Solutions for University Student Data
+- 
 
 ## Scenario 1: Aggregation Pipelines & Data Analysis
 
@@ -229,7 +217,7 @@ Identify which majors have the smartest students (GPA >= 3.5).
 5. **Project:** Output: `{ "Major": "CS", "Honor_Student_Count": 3 }`.
 
 ## Submission Guidelines
-- Create 4 JavaScript files as specified above
+- Create 4 MongoDB Script files as specified above
 - Test your pipelines locally in MongoDB before submitting
 - Ensure output formats match the specifications exactly where required
 - The autograding system will run your pipelines and compare results to expected outputs
